@@ -5,18 +5,19 @@ Perfect for meeting notes, daily logs, tasks, reports, or any repeatable documen
 
 ![VS Code](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visualstudiocode)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-0.1.0-orange)
+![Version](https://img.shields.io/badge/version-0.2.0-orange)
 
 ---
 
 ## Features
 
-**Create files from templates** stored in a `.templates/` folder  
+**Create files from templates** stored in the `.templates/` folder  
 **Dynamic template selection** via Command Palette  
-**Custom variables** (`${user}`, `${project}`, etc.) with interactive prompts  
+**Per-template output folders** (customizable in settings)  
+**Custom variables** (`${user}`, `${project}`, `${title}`, etc.)  
+**Required `${title}` input** used for both filename and template content  
 **Built-in variables** for date, timestamp, and workspace name  
-**Simple command palette interface** — no clutter, no configuration files  
-**Quickly create new templates** inside your workspace  
+**Quick template creation** via one command  
 
 ---
 
@@ -34,6 +35,8 @@ Perfect for meeting notes, daily logs, tasks, reports, or any repeatable documen
 You can configure the extension from **Settings → Extensions → Templatr**,  
 or directly in your workspace `.vscode/settings.json`.
 
+### Example Configuration
+
 ```json
 {
   "templatr.variables": {
@@ -41,6 +44,12 @@ or directly in your workspace `.vscode/settings.json`.
     "project": "Bat Framework"
   },
   "templatr.outputFolder": "notes",
+  "templatr.templateFolders": {
+    "note.md": "notes",
+    "task.md": "tasks",
+    "meeting_minutes.md": "meetings",
+    "bug_report.md": "reports"
+  },
   "templatr.defaultFileExtension": "md",
   "templatr.showNotifications": true
 }
@@ -128,6 +137,7 @@ Setting | Type | Default | Description
 --- | --- | --- | ---
 templatr.variables | object | { "user": "Anonymous" } | Key–value pairs for template variables
 templatr.outputFolder | string | "notes" | Folder where generated files will be created
+templatr.templateFolders | object | {} | Map templates to specific output folders (keys = template filenames, values = target folders)
 templatr.defaultFileExtension | num | "md" | Default file extension (md, txt, markdown)
 templatr.showNotifications | boolean | true | Whether to show info messages after creation
 
@@ -166,15 +176,19 @@ the extension will ask you for it when creating a file.
 
 ```
 .your-workspace/
-│
 ├── .templates/
 │   ├── note.md
 │   ├── task.md
-│   └── meeting_minutes.md
+│   ├── meeting_minutes.md
+│   └── bug_report.md
 │
-└── notes/
-    ├── note-2025-10-28T22-50-31.md
-    └── meeting_minutes-2025-10-28T22-51-10.md
+├── notes/
+│   └── Daily_Report.md
+├── tasks/
+│   └── Fix_Bug_42.md
+└── meetings/
+    └── Team_Sync.md
+
 ```
 
 ### Tips & Best Practices

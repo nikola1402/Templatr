@@ -22,7 +22,7 @@ function getVariableMap(workspacePath) {
 		ISODate: new Date().toISOString().split('T')[0],
 		date: new Date().toLocaleString(),
 		timestamp: new Date().toISOString().replace(/[:.]/g, '-'),
-		workspaceName: path.basename(workspacePath),
+		workspaceName: path.basename(workspacePath)
 	};
 
 	return { ...builtInVars, ...userVars };
@@ -118,13 +118,13 @@ async function createFromTemplate() {
 		return;
 	}
 
-	// Ask user to choose a template
+	// Choose template
 	const picked = await vscode.window.showQuickPick(templates, {
 		placeHolder: 'Select a template to create a new file from'
 	});
 	if (!picked) return;
 
-	// Always require a title
+	// Always require title
 	const title = await vscode.window.showInputBox({
 		prompt: 'Enter the title for this note (used as filename and ${title} variable):',
 		ignoreFocusOut: true
@@ -134,33 +134,34 @@ async function createFromTemplate() {
 		return;
 	}
 
-	// Load template content
+	// Read template
 	const templatePath = path.join(templatesDir, picked);
 	let content = fs.readFileSync(templatePath, 'utf8');
 
-	// Prepare variables
+	// Merge variables
 	const vars = getVariableMap(workspacePath);
-	vars.title = title; // always include title
-
+	vars.title = title;
 	content = await applyVariablesAsync(content, vars);
 
-	// Determine file destination
-	const folderSetting = config.get('outputFolder') || 'notes';
-	const fileExtension = config.get('defaultFileExtension') || 'md';
-	const targetDir = path.join(workspacePath, folderSetting);
+	// Determine folder dynamically
+	const folderMapping = config.get('templateFolders') || {};
+	const defaultFolder = config.get('outputFolder') || 'notes';
+	const targetFolder = folderMapping[picked] || defaultFolder;
+	const targetDir = path.join(workspacePath, targetFolder);
 	ensureDir(targetDir);
 
-	// File name = title.md (spaces converted to underscores)
+	// Safe filename: title.md
+	const fileExtension = config.get('defaultFileExtension') || 'md';
 	const safeTitle = title.replace(/[<>:"/\\|?*\x00-\x1F]/g, '').replace(/\s+/g, '_');
 	const filePath = path.join(targetDir, `${safeTitle}.${fileExtension}`);
 
-	// Write and open file
+	// Write and open
 	fs.writeFileSync(filePath, content);
 	const document = await vscode.workspace.openTextDocument(filePath);
 	vscode.window.showTextDocument(document);
 
 	if (config.get('showNotifications')) {
-		vscode.window.showInformationMessage(`Created note: ${safeTitle}.${fileExtension}`);
+		vscode.window.showInformationMessage(`Created file from ${picked} → ${targetFolder}/${safeTitle}.${fileExtension}`);
 	}
 }
 

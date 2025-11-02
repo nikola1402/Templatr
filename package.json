@@ -1,17 +1,16 @@
 {
   "name": "templatr",
   "displayName": "Templatr",
-  "publisher": "NikolaPuric",
-  	"repository": {
+  "repository": {
 		"url": "https://github.com/nikola1402/Templatr"
 	},
-  "description": "Generate new files from templates or create new templates easily.",
-  "version": "0.1.1",
+  "version": "0.2.0",
+  "publisher": "NikolaPuric",
   "engines": {
     "vscode": "^1.105.0"
   },
   "categories": [
-    "Other"
+    "Productivity"
   ],
   "activationEvents": [
     "onCommand:templatr.createFromTemplate",
@@ -45,7 +44,7 @@
       "type": "object",
       "title": "Templatr",
       "properties": {
-        "notesFileGenerator.variables": {
+        "templatr.variables": {
           "type": "object",
           "description": "Custom template variables for file generation.",
           "default": {
@@ -53,18 +52,26 @@
             "workspaceName": "${workspaceName}"
           }
         },
-        "notesFileGenerator.outputFolder": {
+        "templatr.outputFolder": {
           "type": "string",
-          "description": "Folder where generated files will be created.",
+          "description": "Default folder where generated files will be created.",
           "default": "notes"
         },
-        "notesFileGenerator.defaultFileExtension": {
+        "templatr.templateFolders": {
+          "type": "object",
+          "description": "Per-template output folder mapping. Keys are template filenames, values are relative folder paths.",
+          "default": {
+            "note.md": "notes",
+            "task.md": "tasks"
+          }
+        },
+        "templatr.defaultFileExtension": {
           "type": "string",
           "description": "Default file extension for generated files.",
           "default": "md",
           "enum": ["md", "txt", "markdown"]
         },
-        "notesFileGenerator.showNotifications": {
+        "templatr.showNotifications": {
           "type": "boolean",
           "description": "Show success notifications after file creation.",
           "default": true
