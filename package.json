@@ -6,7 +6,7 @@
 		"url": "https://github.com/nikola1402/Templatr"
 	},
   "description": "Generate new files from templates or create new templates easily.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.105.0"
   },

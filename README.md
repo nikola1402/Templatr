@@ -86,8 +86,9 @@ You can store templates in a `.templates/` folder in your workspace, customize v
 1. Open Command Palette: `Ctrl+Shift+P`
 2. Run: `Templatr: Create From Template`
 3. Select one of your templates.
-4. You’ll be asked to provide values for any missing variables.
-5. The new file is created in the output folder (default: `notes/`).
+4. You'll be asked to provide a filename
+5. You’ll be asked to provide values for any missing variables.
+6. The new file is created in the output folder (default: `notes/`).
 
 Example result:
 ```md
