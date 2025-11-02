@@ -1,4 +1,4 @@
-# Templator - Overview
+# Templatr - Overview
 
 A lightweight Visual Studio Code extension that lets you **generate new files from reusable templates**.  
 Perfect for meeting notes, daily logs, tasks, reports, or any repeatable document structure.
@@ -24,32 +24,32 @@ Perfect for meeting notes, daily logs, tasks, reports, or any repeatable documen
 
 | Command | Description |
 |----------|--------------|
-| **Templator: Create From Template** | Lists all templates in `.templates/` and generates a new file from the one you pick. |
-| **Templator: Create New Template** | Opens a new file for creating a new template inside `.templates/`. |
+| **Templatr: Create From Template** | Lists all templates in `.templates/` and generates a new file from the one you pick. |
+| **Templatr: Create New Template** | Opens a new file for creating a new template inside `.templates/`. |
 
 ---
 
 ## Settings
 
-You can configure the extension from **Settings → Extensions → Templator**,  
+You can configure the extension from **Settings → Extensions → Templatr**,  
 or directly in your workspace `.vscode/settings.json`.
 
 ```json
 {
-  "templator.variables": {
+  "templatr.variables": {
     "user": "Bruce Wayne",
     "project": "Bat Framework"
   },
-  "templator.outputFolder": "notes",
-  "templator.defaultFileExtension": "md",
-  "templator.showNotifications": true
+  "templatr.outputFolder": "notes",
+  "templatr.defaultFileExtension": "md",
+  "templatr.showNotifications": true
 }
 ```
 ---
 # User Guide
 
 ## Overview
-The **Templator** extension allows you to quickly create new Markdown files from reusable templates.  
+The **Templatr** extension allows you to quickly create new Markdown files from reusable templates.  
 You can store templates in a `.templates/` folder in your workspace, customize variables, and generate structured documents in seconds.
 
 ---
@@ -57,7 +57,7 @@ You can store templates in a `.templates/` folder in your workspace, customize v
 ## Installation
 1. Open Visual Studio Code.
 2. Go to **Extensions** (`Ctrl+Shift+X`).
-3. Search for **Templator**.
+3. Search for **Templatr**.
 4. Click **Install**.
 
 ---
@@ -66,7 +66,7 @@ You can store templates in a `.templates/` folder in your workspace, customize v
 
 ### Step 1: Create your first template
 1. Open Command Palette: `Ctrl+Shift+P`
-2. Run: **Templator: Create New Template**
+2. Run: **Templatr: Create New Template**
 3. When prompted, enter a name (e.g. `meeting_minutes.md`)
 4. Write your template content, e.g.:
    ```md
@@ -84,7 +84,7 @@ You can store templates in a `.templates/` folder in your workspace, customize v
 ### Step 2: Create a new file from a template
 
 1. Open Command Palette: `Ctrl+Shift+P`
-2. Run: `Templator: Create From Template`
+2. Run: `Templatr: Create From Template`
 3. Select one of your templates.
 4. You’ll be asked to provide values for any missing variables.
 5. The new file is created in the output folder (default: `notes/`).
@@ -104,20 +104,20 @@ Summary of discussion...
 
 You can customize behavior in:
 
-`User Settings → File ▸ Preferences ▸ Settings ▸ Extensions ▸ Templator`
+`User Settings → File ▸ Preferences ▸ Settings ▸ Extensions ▸ Templatr`
 
 or directly in your workspace `.vscode/settings.json file`.
 
 Example:
 ```json
 {
-  "templator.variables": {
+  "templatr.variables": {
     "user": "Bruce Wayne",
     "project": "Bat Framework"
   },
-  "templator.outputFolder": "workspace-notes",
-  "templator.defaultFileExtension": "md",
-  "templator.showNotifications": true
+  "templatr.outputFolder": "workspace-notes",
+  "templatr.defaultFileExtension": "md",
+  "templatr.showNotifications": true
 }
 ```
 
@@ -125,10 +125,10 @@ Example:
 
 Setting | Type | Default | Description
 --- | --- | --- | ---
-templator.variables | object | { "user": "Anonymous" } | Key–value pairs for template variables
-templator.outputFolder | string | "notes" | Folder where generated files will be created
-templator.defaultFileExtension | num | "md" | Default file extension (md, txt, markdown)
-templator.showNotifications | boolean | true | Whether to show info messages after creation
+templatr.variables | object | { "user": "Anonymous" } | Key–value pairs for template variables
+templatr.outputFolder | string | "notes" | Folder where generated files will be created
+templatr.defaultFileExtension | num | "md" | Default file extension (md, txt, markdown)
+templatr.showNotifications | boolean | true | Whether to show info messages after creation
 
 ### Template Variables
 
@@ -144,11 +144,11 @@ Variable | Example | Description
 
 ### Custom Variables
 
-Defined in settings.json under templator.variables.
+Defined in settings.json under templatr.variables.
 
 Example:
 ```json
-"templator.variables": {
+"templatr.variables": {
   "user": "Bruce Wayne",
   "project": "Bat Framework"
 }
@@ -187,7 +187,7 @@ the extension will ask you for it when creating a file.
 ### Troubleshooting
 Problem | Possible Cause | Solution
 --- | --- | ---
-“No templates found” | .templates/ folder missing | Create a template using Templator: Create New Template
+“No templates found” | .templates/ folder missing | Create a template using Templatr: Create New Template
 Variables not replaced | Typo or undefined variable | Check spelling or add variable to settings
 File not created | Workspace not open | Ensure a folder is opened in VS Code
 

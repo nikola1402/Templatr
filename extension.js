@@ -150,8 +150,8 @@ async function createFromTemplate() {
 
 function activate(context) {
 	context.subscriptions.push(
-		vscode.commands.registerCommand('templator.createFromTemplate', createFromTemplate),
-		vscode.commands.registerCommand('templator.newTemplate', createNewTemplate)
+		vscode.commands.registerCommand('templatr.createFromTemplate', createFromTemplate),
+		vscode.commands.registerCommand('templatr.newTemplate', createNewTemplate)
 	);
 }
 

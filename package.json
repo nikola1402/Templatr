@@ -1,7 +1,10 @@
 {
-  "name": "templator",
-  "displayName": "Templator",
+  "name": "templatr",
+  "displayName": "Templatr",
   "publisher": "NikolaPuric",
+  	"repository": {
+		"url": "https://github.com/nikola1402/Templator"
+	},
   "description": "Generate new files from templates or create new templates easily.",
   "version": "0.1.0",
   "engines": {
@@ -11,36 +14,36 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:templator.createFromTemplate",
-    "onCommand:templator.newTemplate"
+    "onCommand:templatr.createFromTemplate",
+    "onCommand:templatr.newTemplate"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "templator.createFromTemplate",
-        "title": "Templator: Create From Template"
+        "command": "templatr.createFromTemplate",
+        "title": "Templatr: Create From Template"
       },
       {
-        "command": "templator.newTemplate",
-        "title": "Templator: Create New Template"
+        "command": "templatr.newTemplate",
+        "title": "Templatr: Create New Template"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "templator.createFromTemplate",
+          "command": "templatr.createFromTemplate",
           "group": "navigation"
         },
         {
-          "command": "templator.newTemplate",
+          "command": "templatr.newTemplate",
           "group": "navigation"
         }
       ]
     },
     "configuration": {
       "type": "object",
-      "title": "Templator",
+      "title": "Templatr",
       "properties": {
         "notesFileGenerator.variables": {
           "type": "object",
