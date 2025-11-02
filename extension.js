@@ -15,7 +15,7 @@ function ensureDir(dirPath) {
  * Built-in + user variables
  */
 function getVariableMap(workspacePath) {
-	const config = vscode.workspace.getConfiguration('notesFileGenerator');
+	const config = vscode.workspace.getConfiguration('templatr');
 	const userVars = config.get('variables') || {};
 
 	const builtInVars = {
@@ -105,7 +105,7 @@ async function createFromTemplate() {
 
 	const workspacePath = workspaceFolders[0].uri.fsPath;
 	const templatesDir = path.join(workspacePath, '.templates');
-	const config = vscode.workspace.getConfiguration('notesFileGenerator');
+	const config = vscode.workspace.getConfiguration('templatr');
 
 	if (!fs.existsSync(templatesDir)) {
 		vscode.window.showWarningMessage('No .templates folder found in workspace.');
@@ -118,33 +118,49 @@ async function createFromTemplate() {
 		return;
 	}
 
+	// Ask user to choose a template
 	const picked = await vscode.window.showQuickPick(templates, {
 		placeHolder: 'Select a template to create a new file from'
 	});
 	if (!picked) return;
 
+	// Always require a title
+	const title = await vscode.window.showInputBox({
+		prompt: 'Enter the title for this note (used as filename and ${title} variable):',
+		ignoreFocusOut: true
+	});
+	if (!title) {
+		vscode.window.showWarningMessage('File creation cancelled (no title provided).');
+		return;
+	}
+
+	// Load template content
 	const templatePath = path.join(templatesDir, picked);
+	let content = fs.readFileSync(templatePath, 'utf8');
+
+	// Prepare variables
+	const vars = getVariableMap(workspacePath);
+	vars.title = title; // always include title
+
+	content = await applyVariablesAsync(content, vars);
+
+	// Determine file destination
 	const folderSetting = config.get('outputFolder') || 'notes';
 	const fileExtension = config.get('defaultFileExtension') || 'md';
-
 	const targetDir = path.join(workspacePath, folderSetting);
 	ensureDir(targetDir);
 
-	const vars = getVariableMap(workspacePath);
-	let content = fs.readFileSync(templatePath, 'utf8');
-	content = await applyVariablesAsync(content, vars);
+	// File name = title.md (spaces converted to underscores)
+	const safeTitle = title.replace(/[<>:"/\\|?*\x00-\x1F]/g, '').replace(/\s+/g, '_');
+	const filePath = path.join(targetDir, `${safeTitle}.${fileExtension}`);
 
-	const timestamp = vars.timestamp;
-	const fileName = `${picked.replace('.md', '')}-${timestamp}.${fileExtension}`;
-	const filePath = path.join(targetDir, fileName);
-
+	// Write and open file
 	fs.writeFileSync(filePath, content);
-
 	const document = await vscode.workspace.openTextDocument(filePath);
 	vscode.window.showTextDocument(document);
 
 	if (config.get('showNotifications')) {
-		vscode.window.showInformationMessage(`Created new file from template: ${picked}`);
+		vscode.window.showInformationMessage(`Created note: ${safeTitle}.${fileExtension}`);
 	}
 }
 

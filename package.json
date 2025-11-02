@@ -3,7 +3,7 @@
   "displayName": "Templatr",
   "publisher": "NikolaPuric",
   	"repository": {
-		"url": "https://github.com/nikola1402/Templator"
+		"url": "https://github.com/nikola1402/Templatr"
 	},
   "description": "Generate new files from templates or create new templates easily.",
   "version": "0.1.0",
