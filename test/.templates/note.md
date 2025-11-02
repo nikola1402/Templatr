@@ -1,0 +1,2 @@
+Note: ${notename}
+Author: ${author}

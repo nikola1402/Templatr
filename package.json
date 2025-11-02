@@ -1,0 +1,85 @@
+{
+  "name": "templator",
+  "displayName": "Templator",
+  "publisher": "NikolaPuric",
+  "description": "Generate new files from templates or create new templates easily.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:templator.createFromTemplate",
+    "onCommand:templator.newTemplate"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "templator.createFromTemplate",
+        "title": "Templator: Create From Template"
+      },
+      {
+        "command": "templator.newTemplate",
+        "title": "Templator: Create New Template"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "templator.createFromTemplate",
+          "group": "navigation"
+        },
+        {
+          "command": "templator.newTemplate",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Templator",
+      "properties": {
+        "notesFileGenerator.variables": {
+          "type": "object",
+          "description": "Custom template variables for file generation.",
+          "default": {
+            "user": "Anonymous",
+            "workspaceName": "${workspaceName}"
+          }
+        },
+        "notesFileGenerator.outputFolder": {
+          "type": "string",
+          "description": "Folder where generated files will be created.",
+          "default": "notes"
+        },
+        "notesFileGenerator.defaultFileExtension": {
+          "type": "string",
+          "description": "Default file extension for generated files.",
+          "default": "md",
+          "enum": ["md", "txt", "markdown"]
+        },
+        "notesFileGenerator.showNotifications": {
+          "type": "boolean",
+          "description": "Show success notifications after file creation.",
+          "default": true
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.105.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "eslint": "^9.36.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
