@@ -10,7 +10,7 @@
     "vscode": "^1.105.0"
   },
   "categories": [
-    "Productivity"
+    "Other"
   ],
   "activationEvents": [
     "onCommand:templatr.createFromTemplate",
